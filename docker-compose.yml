@@ -1,0 +1,19 @@
+services:
+  back:
+    build: ./back
+    container_name: kbo-team-finder-back
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  front:
+    build: ./front
+    container_name: kbo-team-finder-front
+    depends_on:
+      - back
+    environment:
+      API_BASE_URL: http://back:8000
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+
